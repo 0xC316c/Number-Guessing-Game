@@ -42,23 +42,15 @@ namespace NumberGuessingGame
                 {
                     score += 10;
                     lblScore.Text = "Score: " + score;
+                    guesses = 0;
+                    lblGuessed.Text = "Guessed: " + guesses;
                     MessageBox.Show("Great, you guessed it right! Wanna try again?");
                     loadGenerator();
                     txtBoxNumber.Clear();
                     txtBoxNumber.Focus();
-                    guesses = 0;
-                    lblGuessed.Text = "Guessed: " + guesses + " times";
                 }
                 // If input is less than or greater than the generated number; generate a new random number, increment guess count and reset the score count.
-                else if (input < randnum)
-                {
-                    loadGenerator();
-                    guesses += 1;
-                    lblGuessed.Text = "Guessed: " + guesses + " times";
-                    score = 0;
-                    lblScore.Text = "Score: " + score;
-                }
-                else
+                else if (input < randnum || input > randnum)
                 {
                     loadGenerator();
                     guesses += 1;
@@ -67,20 +59,11 @@ namespace NumberGuessingGame
                     lblScore.Text = "Score: " + score;
                 }
 
-                // Reset guess count, clear listbox items and throw an error when the input is greater than 10 or less than 1.
-                if (input > 10)
+                // When the input is greater than 10 or less than 1; Reset guess count, clear listbox items and throw an error.
+                if (input > 10 || input < 1)
                 {
                     guesses = 0;
-                    lblGuessed.Text = "Guessed: 0";
-                    lbYou.Items.Clear();
-                    lbPC.Items.Clear();
-                    MessageBox.Show("That's an invalid number.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-                else if (input < 1)
-                {
-                    guesses = 0;
-                    lblGuessed.Text = "Guessed: 0";
+                    lblGuessed.Text = "Guessed: " + guesses;
                     lbYou.Items.Clear();
                     lbPC.Items.Clear();
                     MessageBox.Show("That's an invalid number.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -97,9 +80,9 @@ namespace NumberGuessingGame
         {
             // Reset guess count, score count; Clear listbox items; Clear and focus on TextBox.
             guesses = 0;
-            lblGuessed.Text = "Guessed: 0";
+            lblGuessed.Text = "Guessed: " + guesses;
             score = 0;
-            lblScore.Text = "Score: 0";
+            lblScore.Text = "Score: " + score;
             lbYou.Items.Clear();
             lbPC.Items.Clear();
             txtBoxNumber.Clear();
